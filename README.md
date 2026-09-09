@@ -89,7 +89,7 @@ A full-stack social study platform for college campuses: students discover and c
 │   │   ├── services/           # Supabase data-layer (one file per domain)
 │   │   ├── utils/              # formatDate/timeAgo helpers
 │   │   └── styles/             # Tailwind entry + design tokens
-│   └── pubilc/                 # favicon, icons.svg sprite
+│   └── public/                 # favicon, icons.svg sprite
 └── supabase/
     ├── config.toml             # Supabase project config
     ├── migrations/             # 0001 … 0014, ordered SQL migrations
