@@ -1,0 +1,308 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   Study Group Finder — Design Tokens (v2 "Forest & Bone")
+   Primitive layer (raw values) → Semantic layer (purpose aliases)
+
+   Identity: warm editorial campus product.
+   One accent family (forest green); amber is reserved for tiny
+   semantic highlights (streaks, "new", attended), never structural.
+   Radius rule (documented): cards 20px · interactive 10px · chips pill.
+   Shadows are warm-tinted, never pure black.
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+}
+
+/* ---- Dark-mode semantic overrides ----
+   Primitives stay constant; only the semantic layer is remapped.
+   Deep green-black base, elevated bone-dark surfaces, forest accent.
+   How it's applied: ThemeProvider toggles `.dark` on <html>. */
+.dark {
+  color-scheme: dark;
+}
+
+@theme {
+  /* ---- Primitive palette ---- */
+  --color-forest-50: #eef6f0;
+  --color-forest-100: #dcean0;
+  --color-forest-200: #b9d5c1;
+  --color-forest-300: #8fb9a0;
+  --color-forest-400: #63997e;
+  --color-forest-500: #3d7f60;
+  --color-forest-600: #2e6b4c;
+  --color-forest-700: #26573f;
+  --color-forest-800: #1f4733;
+  --color-forest-900: #1b3a2b;
+  --color-forest-950: #122a1f;
+
+  --color-amber-50: #fbf5e7;
+  --color-amber-100: #f7eeda;
+  --color-amber-500: #c07a21;
+  --color-amber-600: #a6641b;
+  --color-amber-700: #835016;
+
+  --color-bone-50: #faf9f5;
+  --color-bone-100: #f4f2ec;
+  --color-bone-200: #e9e6dd;
+  --color-bone-300: #ddd8cb;
+  --color-bone-400: #c2bbad;
+  --color-bone-500: #a29b8e;
+
+  --color-ink-400: #717a73;
+  --color-ink-500: #5a635c;
+  --color-ink-600: #4a524c;
+  --color-ink-700: #39423c;
+  --color-ink-800: #2b342d;
+  --color-ink-900: #1c241f;
+
+  --color-danger-500: #c23b32;
+  --color-danger-600: #a9322a;
+  --color-danger-700: #8f2a23;
+  --color-danger-soft: #fbeae8;
+
+  /* ---- Semantic layer (LIGHT) ---- */
+  --color-background: var(--color-bone-50);
+  --color-surface: #ffffff;
+  --color-surface-muted: var(--color-bone-100);
+  --color-surface-strong: var(--color-bone-200);
+
+  --color-primary: var(--color-forest-600);
+  --color-primary-hover: var(--color-forest-700);
+  --color-primary-active: var(--color-forest-800);
+  --color-primary-soft: var(--color-forest-50);
+  --color-primary-soft-text: var(--color-forest-700);
+  --color-on-primary: #ffffff;
+
+  --color-accent: var(--color-amber-600);
+  --color-accent-hover: var(--color-amber-700);
+  --color-accent-soft: var(--color-amber-100);
+  --color-on-accent: #ffffff;
+
+  --color-foreground: var(--color-ink-900);
+  --color-muted: var(--color-ink-500);
+  --color-muted-fg: var(--color-ink-500);
+  --color-border: var(--color-bone-300);
+  --color-border-strong: var(--color-bone-400);
+  --color-ring: var(--color-forest-300);
+  --color-danger: var(--color-danger-500);
+  --color-danger-fg: var(--color-danger-700);
+
+  /* ---- Typography ---- */
+  --font-display: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Outfit Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---- Radii (one scale: card 20 · interactive 10 · chips pill) ---- */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 1.25rem;
+
+  /* ---- Shadows / elevation (warm-tinted, single light source) ---- */
+  --shadow-card: 0 1px 2px rgb(28 36 31 / 0.04), 0 1px 3px rgb(28 36 31 / 0.05);
+  --shadow-card-hover: 0 4px 14px rgb(28 36 31 / 0.07), 0 2px 4px rgb(28 36 31 / 0.04);
+  --shadow-dialog: 0 24px 64px rgb(28 36 31 / 0.16), 0 6px 16px rgb(28 36 31 / 0.1);
+
+  /* ---- Motion ---- */
+  --duration-fast: 0.18s;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-in: fade-in 0.25s var(--ease-standard);
+  --animate-slide-up: slide-up 0.35s var(--ease-standard);
+  --animate-scale-in: scale-in 0.2s var(--ease-standard);
+  --animate-marquee: marquee 42s linear infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
+
+/* ---- DARK MODE: semantic layer remap ----
+   Deep green-black base (`#0f1412`), elevated surfaces step up through
+   warm dark tones. Forest stays the accent; amber remains a semantic
+   highlight. All components already consume the semantic tokens, so
+   swapping them here restyles the whole app. */
+@layer base {
+  .dark {
+    --color-background: var(--color-ink-900);
+    --color-surface: #17211c;
+    --color-surface-muted: #1c2822;
+    --color-surface-strong: #233129;
+
+    --color-primary: var(--color-forest-400);
+    --color-primary-hover: var(--color-forest-500);
+    --color-primary-active: var(--color-forest-600);
+    --color-primary-soft: #1b2d24;
+    --color-primary-soft-text: var(--color-forest-300);
+    --color-on-primary: var(--color-forest-950);
+
+    --color-accent: var(--color-amber-500);
+    --color-accent-hover: var(--color-amber-600);
+    --color-accent-soft: #332a18;
+    --color-on-accent: #241a09;
+
+    --color-foreground: var(--color-bone-100);
+    --color-muted: var(--color-bone-400);
+    --color-muted-fg: var(--color-bone-400);
+    --color-border: #2c3b32;
+    --color-border-strong: #3a4d41;
+    --color-ring: var(--color-forest-500);
+    --color-danger: var(--color-danger-500);
+    --color-danger-fg: #e8a49f;
+    --color-danger-soft: #331d1b;
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.25), 0 1px 3px rgb(0 0 0 / 0.2);
+    --shadow-card-hover: 0 4px 14px rgb(0 0 0 / 0.35), 0 2px 4px rgb(0 0 0 / 0.25);
+    --shadow-dialog: 0 24px 64px rgb(0 0 0 / 0.5), 0 6px 16px rgb(0 0 0 / 0.35);
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: 'cv02', 'cv03', 'cv04';
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================
+   Component classes — single source of truth for shared UI
+   ============================================================ */
+@layer components {
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg font-medium transition select-none disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+  .btn-sm { @apply px-3 py-1.5 text-sm; }
+  .btn-md { @apply px-4 py-2 text-sm; }
+  .btn-lg { @apply px-5 py-2.5 text-[15px]; }
+  .btn-icon { @apply p-2; }
+
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium text-sm select-none text-on-primary bg-primary hover:bg-primary-hover active:bg-primary-active active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    box-shadow: 0 1px 2px rgb(46 107 76 / 0.35), 0 0 0 1px rgb(46 107 76 / 0.1);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+  .btn-secondary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium text-sm select-none border border-border bg-surface text-foreground hover:bg-surface-muted hover:border-border-strong active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+  .btn-ghost {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium text-sm select-none text-muted hover:bg-surface-muted hover:text-foreground active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+  .btn-accent {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium text-sm select-none bg-accent text-on-accent hover:bg-accent-hover active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+  .btn-danger {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium text-sm select-none bg-danger text-white hover:bg-danger-600 active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+  .btn-danger-ghost {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium text-sm select-none text-danger-fg hover:bg-danger-soft active:translate-y-px disabled:pointer-events-none disabled:opacity-50;
+    font-family: var(--font-display);
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-standard);
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder:text-muted focus:border-primary focus:ring-2 focus:ring-forest-200 focus:outline-none disabled:cursor-not-allowed disabled:bg-surface-muted;
+    transition: border-color 0.15s var(--ease-standard), box-shadow 0.15s var(--ease-standard);
+  }
+  .input-error {
+    @apply border-danger focus:border-danger focus:ring-2 focus:ring-red-200;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-foreground;
+  }
+  .hint { @apply mt-1.5 text-xs text-muted; }
+  .field-error { @apply mt-1.5 flex items-center gap-1 text-xs font-medium text-danger-fg; }
+
+  .card {
+    @apply rounded-xl border border-border bg-surface shadow-card;
+  }
+  .card-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-forest-200 hover:shadow-card-hover;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .badge-primary { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium bg-primary-soft text-primary-soft-text; }
+  .badge-accent { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium bg-accent-soft text-accent; }
+  .badge-neutral { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium bg-surface-strong text-ink-600; }
+  .badge-danger { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium bg-danger-soft text-danger-fg; }
+  .badge-outline { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium border border-border text-muted; }
+
+  .toast {
+    @apply flex items-start gap-3 rounded-lg border border-border bg-surface p-3 text-sm shadow-dialog;
+  }
+  .skeleton {
+    @apply animate-pulse rounded-md bg-surface-strong;
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 42s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
