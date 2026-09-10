@@ -63,7 +63,7 @@ export function ConversationView({
     void markConversationRead(conversationId).catch(() => undefined)
     const channel = subscribeToMessages(conversationId, () => {
       void load().catch(() => undefined)
-    })
+    }, '-view')
     unsubscribe = () => {
       void supabase.removeChannel(channel)
     }
