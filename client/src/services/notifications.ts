@@ -56,7 +56,7 @@ export async function markRead(id: string): Promise<void> {
 }
 
 export function subscribeToNotifications(userId: string, onInsert: () => void, suffix?: string) {
-  const topic = suffix ? `notifications-${userId}-${suffix}` : `notifications-${userId}-${crypto.randomUUID()}`
+  const topic = `notifications-${userId}-${suffix ?? 'default'}-${crypto.randomUUID()}`
   return supabase
     .channel(topic)
     .on(

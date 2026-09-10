@@ -44,7 +44,7 @@ export default function ChatHub() {
       .finally(() => active && setLoading(false))
 
     const channel = supabase
-      .channel('chat-inbox')
+      .channel(`chat-inbox-${crypto.randomUUID()}`)
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'conversation_members', filter: `user_id=eq.${user?.id}` }, () => {
         void load().catch(() => undefined)
       })

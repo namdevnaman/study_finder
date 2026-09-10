@@ -67,9 +67,9 @@ export async function markConversationRead(conversationId: string): Promise<void
   if (error) throw error
 }
 
-export function subscribeToMessages(conversationId: string, onInsert: () => void, topicSuffix = '') {
+export function subscribeToMessages(conversationId: string, onInsert: () => void, tag = '') {
   return supabase
-    .channel(`chat-${conversationId}${topicSuffix}`)
+    .channel(`chat-${conversationId}-${tag || 'live'}-${crypto.randomUUID()}`)
     .on(
       'postgres_changes',
       {
